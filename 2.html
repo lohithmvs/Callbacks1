@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        console.log("converting callbacks hell to promises");
+        function add(sum){
+            return new Promise((resolve,reject)=>{
+                reject(sum*10)
+            })
+        }
+        add(10).then(data=>{console.log(data)}).catch(data1=>{console.log(data1)});
+        console.log("real one starts");
+        function add1(val){
+            return new Promise((res,rej)=>{
+                res(val+10);
+            })
+        }
+        function sub(val){
+            return new Promise((res,rej)=>{
+                res(val-5);
+            })
+        }
+        function mul(val){
+            return new Promise((res,rej)=>{
+                res(val*2);
+            })
+        }
+        function div(val){
+            return new Promise((res,rej)=>{
+                res(val/2);
+            })
+        }
+        add1(10).then(addRes=>sub(addRes))
+                .then(subRes=>mul(subRes))
+                .then(mulRes=>div(mulRes))
+                .then(divRes=>console.log(divRes))
+                .catch(error=>console.log(error));
+        async function exe(){
+            let addr=await add1(10);
+            let subr=await sub(addr);
+            let mulr=await mul(subr);
+            let divr=await div(mulr);
+            console.log(divr);
+        }
+        exe();
+    </script>
+</body>
+</html>

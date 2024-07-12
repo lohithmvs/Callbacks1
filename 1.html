@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function add(val1,val2,callback){
+            callback(val1+val2);
+        }
+        function sub(val1,val2,callback){
+            callback(val1-val2);
+        }
+        function multi(val1,val2,callback){
+            callback(val1*val2);
+        }
+        add(10,5,(addRes)=>{
+            sub(addRes,3,(subRes)=>{
+                multi(subRes,2,(multiRes)=>{
+                    console.log(multiRes);
+                })
+            })
+        });
+        console.log("resolve and promise");
+        let promise1=new Promise((resolve,reject)=>{
+            let a=11;
+            if(a%2==0){
+                resolve("it is a even number");
+            }
+            else{
+                reject("odd number");
+            }
+        })
+        promise1.then((resolve)=>{
+            console.log(resolve);
+        }).catch((reject)=>{
+            console.log(reject);
+        })
+        console.log("this keyword");
+        var btn=document.createElement("button");
+        btn.innerText="submit";
+        document.body.appendChild(btn);
+        btn.addEventListener("click",function(){
+            this.style.backgroundColor="red";
+            console.log(this); // prints btn details
+        })
+        function hello(){
+            console.log(this); // prints whole window
+        }
+        obj={name:"john",age:30};
+        obj2={name:"grisam",age:20};
+        hello();
+        hello.call(obj);
+        hello.apply(obj2);
+        let hellobind= hello.bind(obj);
+        hellobind();
+        console.log("prototype");
+        function hi(name,age){
+            this.age=age;
+            this.name=name;
+        }
+        hi.prototype.company="10k";
+        let obj22=new hi("hello",20);
+        console.log(obj22.company);
+        console.log(obj22);
+    </script>
+</body>
+</html>
